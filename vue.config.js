@@ -6,6 +6,7 @@ module.exports = defineConfig({
     liveReload: false,
     https: true,
   },
+  publicPath: '/insidepku_memorial/'
   // chainWebpack: (config) => {
   //   config.module.rules.delete('svg')
   //

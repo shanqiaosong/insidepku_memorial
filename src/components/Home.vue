@@ -564,6 +564,8 @@ img.bg {
   width: 120px;
   overflow: hidden;
   border-radius: 4px;
+  box-shadow: #73737345 5px 2px 20px;
+  transition: all 0.3s;
 }
 .books .book .flipbook {
   height: 180px;
@@ -578,21 +580,26 @@ img.bg {
 }
 .books .bookItem:hover {
   transform: scale(1.15);
-  box-shadow: rgba(115, 115, 115, 0.47) 10px 10px 40px;
   opacity: 0.8;
+}
+.books .bookItem:hover .book{
+  box-shadow: rgba(115, 115, 115, 0.47) 10px 10px 40px;
+}
+.books .bookItem:active .book{
+  box-shadow: rgba(115, 115, 115, 0.4) 10px 10px 30px;
+}
+.books .bookItem.selected .book{
+  box-shadow: rgba(115, 115, 115, 0.4) 10px 10px 80px;
 }
 .books .bookItem:active {
   transform: scale(1.10);
-  box-shadow: rgba(115, 115, 115, 0.4) 10px 10px 30px;
   opacity: 0.6;
 }
 .books .selected {
   transform: scale(1.5);
-  box-shadow: rgba(115, 115, 115, 0.4) 10px 10px 80px;
   opacity: 0.3;
 }
 .bookItem {
-  box-shadow: #73737345 5px 2px 20px;
   transition: all .4s ease-out;
   will-change: opacity;
   margin-top: 24px;
