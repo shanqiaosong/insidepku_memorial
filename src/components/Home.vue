@@ -47,6 +47,7 @@
         </div>
       </div>
     </div>
+    <div class="footer"> - 此间 - </div>
     <BooksDisplay :title="openedBook.title" @close="closeBook" v-if="openedBook" :pages="getAllPages(openedBook)"></BooksDisplay>
   </div>
 </template>
@@ -287,7 +288,7 @@ export default {
   position: relative;
   scroll-snap-align: start;
   overflow: visible;
-  display: none;
+  will-change: opacity;
 }
 
 @keyframes float {
@@ -448,7 +449,7 @@ export default {
 .section {
   scroll-snap-align: start;
   color: #1c1c1c;
-  padding: 40px 24px;
+  padding: 80px 24px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -629,5 +630,11 @@ img.bg {
   left: 0;
   right: 0;
   z-index: 10;
+}
+.footer {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.3;
+  margin: 24px;
 }
 </style>
