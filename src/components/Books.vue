@@ -63,7 +63,8 @@ export default {
   z-index: 10000;
   left: 0;
   top: 0;
-  backdrop-filter: blur(20px) contrast(0.5) brightness(1.5);
+  background: rgba(245, 245, 245, 0.5);
+  backdrop-filter: blur(20px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -174,8 +175,5 @@ export default {
   width: 90vw !important;
   height: calc(100vh - 50px - 162px) !important;
   margin: 0 auto;
-}
-.singleBook .flipbook .bounding-box {
-  box-shadow: 0 0 46px #0000005e;
 }
 </style>

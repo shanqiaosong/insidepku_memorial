@@ -13,14 +13,6 @@ export default {
   src: url("./assets/Manque-SemiBold-2.ttf");
   font-family: 'manque';
 }
-@font-face {
-  src: url("./assets/BrogettaRegular-ZV5EK-2.ttf");
-  font-family: 'brogetta';
-}
-@font-face {
-  src: url("./assets/HFSpaceship-2.ttf");
-  font-family: 'spaceship';
-}
 /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: "siyuan";
@@ -31,8 +23,10 @@ export default {
 }
 /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-  font-family: "siyuan";font-weight: 700;src: url("//at.alicdn.com/wf/webfont/Kq5i7dmVsXTH/I9A5xeV9nTAXHewmBnwBP.woff2") format("woff2"),
-url("//at.alicdn.com/wf/webfont/Kq5i7dmVsXTH/VgqKxkIXYIahigeebCNSv.woff") format("woff");
+  font-family: "siyuan bold";
+  font-weight: 700;
+  src: url("./assets/3NnrarojpkfhoD0AdHTDM.woff2") format("woff2"),
+        url("./assets/3NnrarojpkfhoD0AdHTDM.woff") format("woff");
   font-display: swap;
 }
 </style>

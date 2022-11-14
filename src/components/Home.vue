@@ -1,5 +1,10 @@
 <template>
   <div class="container" @mousemove="handleMouseMove">
+    <div v-if="animate" class="fallings">
+      <div class="falling" :key="svg" :style="fallingStyle[idx]" v-for="(svg, idx) in fallingSvgs">
+        <img :src="svg" alt="">
+      </div>
+    </div>
     <div ref="coverTiles" :style="coverTilesStyle" class="coverTiles">
       <div :style="coverContainerStyles[index]" class="coverContainer" :key="cover" v-for="(cover,index) in covers" >
         <!--      <img :style="coverStyles[index]" class="coverShadow" alt="cover" :src="cover">-->
@@ -14,7 +19,7 @@
                 <div>此间</div>
                 <div>纪念馆</div>
               </div>
-              <div class="english">InsidePKU Memorial</div>
+              <div class="english">INSIDE PKU Memorial</div>
             </div>
           </div>
           <div :style="followerStyle" class="follower"/>
@@ -60,6 +65,12 @@ import flipbook from 'flipbook-vue'
 import BooksDisplay from "@/components/Books";
 import Star from '@/assets/star.svg'
 import StarLine from '@/assets/star-line.svg'
+import svg1 from '@/assets/1.svg'
+import svg2 from '@/assets/2.svg'
+import svg3 from '@/assets/3.svg'
+import svg4 from '@/assets/4.svg'
+import svg5 from '@/assets/5.svg'
+import svg6 from '@/assets/6.svg'
 
 const covers = [
   '18autumn.jpeg',
@@ -104,10 +115,16 @@ export default {
       timeline,Star, StarLine,
       openedBook: null,
       preCloseBook: null,
+      fallingSvgs: [
+          svg1, svg2, svg3, svg4, svg5, svg6
+      ],
+      fallRounds: 0,
+      animate: true
     }
   },
   components: {BooksDisplay, flipbook},
   mounted() {
+    document.title='此间纪念馆'
     window.addEventListener('deviceorientation', (event) => {
       if (!this.originalOrientation) {
         this.originalOrientation = [event.beta, event.gamma]
@@ -116,6 +133,13 @@ export default {
         this.mouseHeightRatio = minMax((event.beta - this.originalOrientation[0]) / 50);
       }
     }, false);
+    setInterval(()=>{
+      this.animate=false
+      this.fallRounds+=1
+      this.$nextTick(()=>{
+        this.animate=true
+      })
+    },7000);
   },
   computed: {
     coverContainerStyles() {
@@ -130,7 +154,7 @@ export default {
       // const centerDistance = Math.pow(this.mouseHeightRatio - 0.5, 2) + Math.pow(this.mouseWidthRatio - 0.5, 2)
       return covers.map((_, index)=>({
         transform: `scale(${1 + 0.1 * this.adjustedWeights[index]}) `,
-        filter: `blur(${100 * (1 - this.adjustedWeights[index])}px)`,
+        filter: `blur(${70 * (1 - this.adjustedWeights[index])}px)`,
         opacity: 0.5 + 0.5 * this.adjustedWeights[index],
         willChange: 'transform filter opacity'
       }))
@@ -207,6 +231,17 @@ export default {
       const correctedWeights = maxifiedWeights.map((w)=>w/maxMaxifiedWeights * 0.9)
 
       return correctedWeights
+    },
+    fallingStyle() {
+      return Array.from({length:6}).map((_,idx)=>{
+        return {
+          left: 100/6*((idx+this.fallRounds)%6)+100/12+'vw',
+          animationDelay: Math.random()*5+'s',
+          top: Math.random()*80+'vh',
+          width: 50 + Math.random()*50+'px',
+          height: 50 + Math.random()*50+'px'
+        }
+      })
     }
   },
   methods: {
@@ -247,6 +282,47 @@ export default {
 </script>
 
 <style scoped>
+.fallings {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.falling {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  animation: fall cubic-bezier(0.09, 0.52, 0.25, 0.87) 2.0s;
+  opacity: 0;
+}
+
+.falling img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes fall {
+  0%{
+    transform: translate(0, 0);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  40% {
+    opacity: 0.5;
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 0.5;
+    filter: blur(3px);
+  }
+  100% {
+    transform: translate(0, 160px);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
 
 :global(body), :global(#app) {
   margin: 0;
@@ -254,7 +330,7 @@ export default {
   height: 100vh;
   overflow: hidden;
   letter-spacing: 0.02em;
-  font-family: 'siyuan';
+  font-family: 'siyuan', serif;
 }
 
 .container {
@@ -265,14 +341,14 @@ export default {
 
 ::-webkit-scrollbar{
   background-color: transparent;
-  width: 10px;
+  width: 6px;
   z-index: 200;
 }
 ::-webkit-scrollbar-thumb{
   background-color: rgba(0,0,0,.2);
-  border-radius: 5px;
+  border-radius: 3px;
   background-clip: content-box;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   z-index: 200;
 }
 
@@ -419,6 +495,7 @@ export default {
   font-size: 68px;
   letter-spacing: 0.05em;
   margin-bottom: 12px;
+  font-family: 'siyuan bold', serif;
 }
 
 .chinese > div {
@@ -502,6 +579,10 @@ export default {
   left: -34px;
   top: -20px;
 }
+.star1 img, .star2 img {
+  width: 100%;
+  height: 100%;
+}
 .main {
   font-size: 14px;
   max-width: calc(min(100vw - 70px, 800px));
@@ -564,7 +645,7 @@ img.bg {
   height: 162px;
   width: 120px;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: #73737345 5px 2px 20px;
   transition: all 0.3s;
 }
