@@ -71,6 +71,8 @@ import svg3 from '@/assets/3.svg'
 import svg4 from '@/assets/4.svg'
 import svg5 from '@/assets/5.svg'
 import svg6 from '@/assets/6.svg'
+import svg7 from '@/assets/7.svg'
+import svg8 from '@/assets/8.svg'
 
 const covers = [
   '18autumn.jpeg',
@@ -108,15 +110,15 @@ export default {
     return {
       covers,
       decorationPositions,
-      mouseWidthRatio: 0.5,
-      mouseHeightRatio: 0.5,
+      mouseWidthRatio: 0.2,
+      mouseHeightRatio: 0.2,
       mousePosition: {},
       originalOrientation: null, // beta - X, gamma - Y
       timeline,Star, StarLine,
       openedBook: null,
       preCloseBook: null,
       fallingSvgs: [
-          svg1, svg2, svg3, svg4, svg5, svg6
+          svg1, svg2, svg3, svg4, svg5, svg6, svg7, svg8
       ],
       fallRounds: 0,
       animate: true
@@ -233,13 +235,11 @@ export default {
       return correctedWeights
     },
     fallingStyle() {
-      return Array.from({length:6}).map((_,idx)=>{
+      return Array.from({length:8}).map((_,idx)=>{
         return {
-          left: 100/6*((idx+this.fallRounds)%6)+100/12+'vw',
+          left: 100/8*((idx+this.fallRounds)%8)+100/16+'vw',
           animationDelay: Math.random()*5+'s',
           top: Math.random()*80+'vh',
-          width: 50 + Math.random()*50+'px',
-          height: 50 + Math.random()*50+'px'
         }
       })
     }
@@ -299,28 +299,28 @@ export default {
 }
 
 .falling img {
-  width: 100%;
-  height: 100%;
+  transform: scale(0.4);
 }
 
 @keyframes fall {
   0%{
     transform: translate(0, 0);
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(10px);
   }
   40% {
-    opacity: 0.5;
-    filter: blur(3px);
+    opacity: 0.4;
+  }
+  50% {
+    filter: blur(6px);
   }
   60% {
-    opacity: 0.5;
-    filter: blur(3px);
+    opacity: 0.4;
   }
   100% {
     transform: translate(0, 160px);
     opacity: 0;
-    filter: blur(6px);
+    filter: blur(10px);
   }
 }
 
@@ -589,8 +589,8 @@ export default {
   line-height: 1.5em;
 }
 img.bg {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 60%;
   position: absolute;
   filter: blur(50px);
   z-index: -1;
