@@ -176,4 +176,12 @@ export default {
   height: calc(100vh - 50px - 162px) !important;
   margin: 0 auto;
 }
+img.page:first-of-type {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+img.page:last-of-type {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
 </style>
